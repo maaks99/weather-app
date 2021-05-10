@@ -1,7 +1,16 @@
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.container input {
+    font-size: 18px;
+    line-height: 2;
+}
+
+.container input:focus {
+    outline: none;
 }

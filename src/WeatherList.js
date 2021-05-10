@@ -9,7 +9,8 @@ class WeatherList extends Component {
         super(props);
 
         this.state = {
-            weatherList: []
+            weatherList: [],
+            filteredWeatherList: [],
         };
     }
     componentDidMount() {
@@ -19,22 +20,38 @@ class WeatherList extends Component {
     getWeatherData = () => {
         axios.get('https://danepubliczne.imgw.pl/api/data/synop')
             .then(res => {
-                
-                let array = res.data;
-                console.log(array);
+                this.setState((state) => {
+                    let newWeatherList = this.setState({weatherList: res.data});
 
-                return({
-                    weatherList : array
-                });
-               
+                    return({
+                        weatherList: newWeatherList
+                    });
+                });    
+                
+                this.filterWeatherList();
+            });     
+    }
+    
+
+    filterWeatherList = () => {
+        this._inputFilter.value = this._inputFilter.value.trim();
+
+        this.setState((state) => {
+            let newFilteredWeatherList = state.weatherList.filter((item) => {
+                return(item.stacja.includes(this._inputFilter.value));
             });
+
+            return({
+                filteredWeatherList: newFilteredWeatherList
+            });
+        });
     }
 
     render() {
         return(
-            <div>
-
-                <WeatherCity />
+            <div className="container">
+                <input ref={element => this._inputFilter = element} onChange={this.filterWeatherList} type="text" placeholder="Znajdź miasto"></input>
+                <WeatherCity weatherList={this.state.filteredWeatherList}/>
             </div>
         );
     }

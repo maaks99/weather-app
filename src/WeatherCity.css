@@ -9,14 +9,19 @@
 .city-info:hover {
     background-color: rgb(194, 189, 189);
     cursor: pointer;
+    transition: all .3s;
 }
 
 p{
-    font-size: 10px;
+    font-size: 13px;
     margin-top: 15px;
-    font-weight: bold;
 }
 
 h3 {
     margin-top: 15px;
+    color: orangered;
+}
+
+span {
+    font-weight: bold;
 }
