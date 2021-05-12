@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './WeatherList.css';
 import axios from 'axios';
 import WeatherCity from './WeatherCity';
+import Popup from './Popup';
 
 class WeatherList extends Component {
 
@@ -11,6 +12,8 @@ class WeatherList extends Component {
         this.state = {
             weatherList: [],
             filteredWeatherList: [],
+            displayPopup: false,
+            popupItemID: 0,
         };
     }
     componentDidMount() {
@@ -34,11 +37,11 @@ class WeatherList extends Component {
     
 
     filterWeatherList = () => {
-        this._inputFilter.value = this._inputFilter.value.trim();
+        this._inputFilter.value = this._inputFilter.value.trim().toLowerCase();
 
         this.setState((state) => {
             let newFilteredWeatherList = state.weatherList.filter((item) => {
-                return(item.stacja.includes(this._inputFilter.value));
+                return(item.stacja.toLowerCase().includes(this._inputFilter.value));
             });
 
             return({
@@ -47,11 +50,17 @@ class WeatherList extends Component {
         });
     }
 
+    showPopup = (popupState,id) => {
+        this.setState({displayPopup: popupState, popupItemID: id})
+      
+    }
+
     render() {
         return(
             <div className="container">
-                <input ref={element => this._inputFilter = element} onChange={this.filterWeatherList} type="text" placeholder="Znajdź miasto"></input>
-                <WeatherCity weatherList={this.state.filteredWeatherList}/>
+                {this.state.displayPopup && <Popup showPopup={this.showPopup} cityID={this.state.popupItemID}/>}
+                <input ref={element => this._inputFilter = element} onChange={this.filterWeatherList} type="text" placeholder="Znajdź miasto..."></input>
+                <WeatherCity weatherList={this.state.filteredWeatherList} showPopup={this.showPopup}/>
             </div>
         );
     }
