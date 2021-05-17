@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
+import './Popup.css';
 
 
 function Popup(props) {
@@ -11,14 +12,18 @@ function Popup(props) {
             .then(res => {
                 setCityObj(res.data)
             })
-    },[])
-
-    console.log(cityObj);
+    },[props.cityID])
 
     return(
         <div className="popup">
-            <span onClick={() => {props.showPopup(false, 0)}}>X</span>
-            <h2>{cityObj.stacja}</h2>
+            <div className="popup-inner">
+                <span className="close" onClick={() => {props.showPopup(false, 0)}}>X</span>
+                <p><span>Suma opadów:</span> {cityObj.suma_opadu}</p>
+                <p><span>Ciśnienie:</span> {cityObj.cisnienie}</p>
+                <p><span>Predkość wiatru:</span> {cityObj.predkosc_wiatru}</p>
+                <p><span>Kierunek wiatru:</span> {cityObj.kierunek_wiatru}</p>
+                
+            </div>
         </div>
     );
 }

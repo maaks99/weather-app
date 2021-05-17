@@ -1,0 +1,29 @@
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.popup .popup-inner {
+    background-color: rgb(103, 153, 200);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 600px;
+    height: 300px;
+    opacity: 97%;
+}
+
+.popup .popup-inner .close {
+    color: black;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+    background-color:red;
+    border-radius: 10px;
+    font-size: 20px;
+}

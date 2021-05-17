@@ -23,13 +23,7 @@ class WeatherList extends Component {
     getWeatherData = () => {
         axios.get('https://danepubliczne.imgw.pl/api/data/synop')
             .then(res => {
-                this.setState((state) => {
-                    let newWeatherList = this.setState({weatherList: res.data});
-
-                    return({
-                        weatherList: newWeatherList
-                    });
-                });    
+                this.setState({weatherList: res.data});
                 
                 this.filterWeatherList();
             });     
@@ -51,8 +45,10 @@ class WeatherList extends Component {
     }
 
     showPopup = (popupState,id) => {
-        this.setState({displayPopup: popupState, popupItemID: id})
-      
+        this.setState(
+            {displayPopup: popupState,
+             popupItemID: id
+            })
     }
 
     render() {
